@@ -15,6 +15,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class StepDTO {
 
+    private Long id;
+
     private LocalDate date;
 
     private LocalTime time;
