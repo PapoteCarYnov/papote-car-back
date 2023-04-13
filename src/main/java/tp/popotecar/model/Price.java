@@ -1,5 +1,6 @@
 package tp.popotecar.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,11 +23,11 @@ public class Price {
     @NotNull
     private Long price;
 
-    @OneToOne
-    @JoinColumn(name = "start_step_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "start_step_id")
     private Step startStep;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "end_step_id", referencedColumnName = "id")
     private Step endStep;
 }

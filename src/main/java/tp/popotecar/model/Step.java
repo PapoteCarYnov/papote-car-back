@@ -1,5 +1,6 @@
 package tp.popotecar.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -36,4 +38,7 @@ public class Step {
     @ManyToOne
     @JoinColumn(name="ride_id", referencedColumnName = "id")
     private Ride ride;
+
+    @OneToMany(mappedBy="startStep", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Price> prices;
 }

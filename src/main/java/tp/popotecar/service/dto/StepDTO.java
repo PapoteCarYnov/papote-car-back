@@ -8,6 +8,7 @@ import tp.popotecar.model.City;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -22,4 +23,6 @@ public class StepDTO {
     private LocalTime time;
 
     private City city;
+
+    private List<PriceDTO> prices;
 }
