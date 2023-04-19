@@ -31,8 +31,8 @@ public class StepService {
         }
     }
 
-    public Optional<Step> getByCityId(Long cityId) {
-        return stepRepository.findByCity_Id(cityId);
+    public Optional<Step> getByCityIdAndRideId(Long cityId, Long rideId) {
+        return stepRepository.findByCity_IdAndRide_Id(cityId, rideId);
     }
 
     public Optional<Step> getById(Long id) {

@@ -1,5 +1,6 @@
 package tp.popotecar.web.rest;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,7 @@ public class RideController {
 
     @GetMapping
     public ResponseEntity<List<RideDTO>> getRidesByCriteria(
-            @RequestBody RideCriteria rideCriteria
+            @Parameter RideCriteria rideCriteria
     ) {
         return ResponseEntity.ok(rideService.getRidesByCriteria(rideCriteria));
     }

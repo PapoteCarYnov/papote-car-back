@@ -67,13 +67,13 @@ public class RideService {
 
     public List<RideDTO> getRidesByCriteria(RideCriteria rideCriteria) {
         List<Ride> rides = rideRepository.findAll(RideSpecification.specificationFromCriteria(rideCriteria));
-        rides.stream().forEach(ride -> ride.setSteps(filterSteps(ride.getSteps(), rideCriteria.getStartCityId(), rideCriteria.getEndCityId())));
+        rides.stream().forEach(ride -> ride.setSteps(filterSteps(ride.getSteps(), rideCriteria.getStartCityId(), rideCriteria.getEndCityId(), ride.getId())));
         return rideMapper.toDto(rides);
     }
 
-    public List<Step> filterSteps(List<Step> steps, Long startCityId, Long endCityId) {
-        Optional<Step> startStep = stepService.getByCityId(startCityId);
-        Optional<Step> endStep = stepService.getByCityId(endCityId);
+    public List<Step> filterSteps(List<Step> steps, Long startCityId, Long endCityId, Long rideId) {
+        Optional<Step> startStep = stepService.getByCityIdAndRideId(startCityId, rideId);
+        Optional<Step> endStep = stepService.getByCityIdAndRideId(endCityId, rideId);
         if (startStep.isPresent() && endStep.isPresent()) {
             return steps.stream().filter(step ->
                     (step.getTime().isAfter(startStep.get().getTime()) && step.getTime().isBefore(endStep.get().getTime())) ||
@@ -81,6 +81,15 @@ public class RideService {
             ).toList();
         }
         return steps;
+    }
+
+    public void changeRideStatus(Step step) {
+        Optional<Ride> rideOptional = rideRepository.findRideByStepsContains(step);
+        if (rideOptional.isPresent()) {
+            Ride ride = rideOptional.get();
+            ride.setStatus(Status.A_VENIR);
+            rideRepository.save(ride);
+        }
     }
 
 

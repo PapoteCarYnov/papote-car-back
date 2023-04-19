@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface StepRepository extends JpaRepository<Step, Long> {
 
-    Optional<Step> findByCity_Id(Long cityId);
+    Optional<Step> findByCity_IdAndRide_Id(Long cityId, Long rideId);
 }
