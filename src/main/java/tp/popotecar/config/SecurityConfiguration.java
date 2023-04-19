@@ -27,7 +27,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/cities/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/rides/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
